@@ -14,12 +14,12 @@ $mail->isSMTP() ;             //Specifier que mailer pour utiliser SMTP
 $mail->Host = 'smtp.gmail.com' ;  // Specifier le serveur gmail
 $mail->SMTPAuth = true ;          // Pour activer l’authentication
 $mail->Username = 'bertinkuicheu@gmail.com';   // adresse mail de l'emmeteur ou expediteur
-$mail->Password = 'xhferunzcglllsuu ';       // mot de passe de l'emmeteur (dans mot de passe de l'application sur gmail)            
+$mail->Password = 'xhferunzcglllsuu';       // mot de passe de l'emmeteur (dans mot de passe de l'application sur gmail)            
 $mail->SMTPSecure = 'tls' ;    
 $mail->Port = 587 ;
 $mail->CharSet = "utf-8" ;              // TCP port de connexion
-$mail->setFrom('bertinkuicheu@gmail.com', 'Bertino'); // adresse mail de l'emmeteur ou expediteur , le nom est optionnel
-$mail->addAddress($_POST['email'],'Bertino'); // adresse mail du destinataire 
+$mail->setFrom('bertinkuicheu@gmail.com', 'TF1'); // adresse mail de l'emmeteur ou expediteur , le nom est optionnel
+$mail->addAddress($_POST['email'],'TF1'); // adresse mail du destinataire 
 $mail->isHTML(true) ;    // Pour activer l’envoi du mail sous forme HTML
 
 $mail->Subject = 'Confirmation d\'email' ;

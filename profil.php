@@ -17,7 +17,7 @@ if(isset($_SESSION['id']))
                     <h3 class="mb-0">Mon Profil</h3>
                 </div>
                 <div class="card-body text-center p-5">
-                    <img src="images/logo_tf1.png" class=" mb-4 img-thumbnail" alt="Photo de profil">
+                    <img src="images/logo_unedic.png" class=" mb-4 img-thumbnail" alt="Photo de profil">
 
                     <div class="row text-start">
                         <div class="col-sm-6 mb-3">

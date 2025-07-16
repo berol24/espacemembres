@@ -20,7 +20,7 @@ if(isset($_SESSION['id']))
                     <h3>Mon Profil</h3>
                 </div>
                 <div class="profile-body">
-                    <img src="images/logo-NielsenIQ.png" class="profile-image" alt="Photo de profil">
+                    <img src="images/logo-nielsen.png" class="profile-image" alt="Photo de profil">
 
                     <div class="profile-info">
                         <div class="info-group">

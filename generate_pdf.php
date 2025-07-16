@@ -20,6 +20,14 @@ if (isset($_GET['id'])) {
     $stmt->execute([$id]);
     $devis = $stmt->fetch(PDO::FETCH_ASSOC);
 
+    // Récupérer les articles du devis
+    $stmt_articles = $pdo->prepare('SELECT dd.designation, dd.quantite, dd.prix_unitaire, (dd.quantite * dd.prix_unitaire) as sous_total
+                                   FROM devis d
+                                   JOIN devis_details dd ON d.id = dd.id_devis
+                                   WHERE d.id = ?');
+    $stmt_articles->execute([$id]);
+    $articles = $stmt_articles->fetchAll(PDO::FETCH_ASSOC);
+
     // Vérifier si les données ont été trouvées
     if ($devis) {
         // Instancier Dompdf
@@ -86,7 +94,7 @@ if (isset($_GET['id'])) {
                 </div>
 
                 <div class='details'>
-                    <h2>Détails du Devis</h2>
+                    <h2>Détails du Client</h2>
                     <table>
                         <tr>
                             <th>Client</th>
@@ -100,6 +108,29 @@ if (isset($_GET['id'])) {
                             <th>Date de Devis</th>
                             <td>" . htmlspecialchars($devis['date_devis']) . "</td>
                         </tr>
+                    </table>
+
+                    <h2>Articles</h2>
+                    <table>
+                        <tr>
+                            <th>Article</th>
+                            <th>Quantité</th>
+                            <th>Prix unitaire</th>
+                            <th>Sous-total</th>
+                        </tr>";
+                        
+        foreach($articles as $article) {
+            $html .= "<tr>
+                        <td>" . htmlspecialchars($article['designation']) . "</td>
+                        <td>" . htmlspecialchars($article['quantite']) . "</td>
+                        <td>" . number_format($article['prix_unitaire'], 2, ',', ' ') . " €</td>
+                        <td>" . number_format($article['sous_total'], 2, ',', ' ') . " €</td>
+                    </tr>";
+        }
+
+        $html .= "</table>
+
+                    <table style='margin-top: 20px;'>
                         <tr>
                             <th>Total HT</th>
                             <td>" . number_format($devis['total_ht'], 2, ',', ' ') . " €</td>
@@ -128,8 +159,7 @@ if (isset($_GET['id'])) {
         $dompdf->render();
 
         // Sortir le PDF dans le navigateur
-
-        $dompdf->stream('devis_' . $devis['id'] . '.pdf', ['Attachment' => false]);
+        $dompdf->stream($devis['nom']."_".$devis['prenom']."_".'devis_' . $devis['id'] . '.pdf', ['Attachment' => false]);
     } else {
         echo "Devis non trouvé.";
     }

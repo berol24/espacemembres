@@ -70,9 +70,9 @@ $devis = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <td><?= number_format($d['total_ht'], 2, ',', ' ') ?> €</td>
             <td><?= number_format($d['total_ttc'], 2, ',', ' ') ?> €</td>
             <td>
-                <a href="generate_pdf.php?id=<?= $d['id'] ?>" class="btn-download" target="_blank">PDF</a>
+                <a href="generate_pdf.php?id=<?= $d['id'] ?>" class="btn-download" target="_blank" download>PDF</a>
                 <?php
-                $pdfUrl = urlencode("https://" . $_SERVER['HTTP_HOST'] . "/Fruistore/generate_pdf.php?id=" . $d['id']);
+                $pdfUrl = urlencode("https://" . $_SERVER['HTTP_HOST'] . "/generate_pdf.php?id=" . $d['id']);
                 $whatsappMessage = urlencode("Voici votre devis : ");
                 $whatsappLink = "https://api.whatsapp.com/send?phone=" . $d['telephone'] . "&text=" . $whatsappMessage . $pdfUrl;
                 ?>

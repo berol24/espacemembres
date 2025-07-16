@@ -69,7 +69,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    $message = "<p style='color:green; text-align:center'>Devis généré avec succès. <a href='devis_liste.php'>Voir la liste</a></p>";
+
+    $message = "<div style='background-color: #dff0d8; color: #3c763d; padding: 15px; margin: 20px 0; border: 1px solid #d6e9c6; border-radius: 4px; text-align: center;'>
+        Devis généré avec succès. 
+    </div>";
 }
 ?>
 
@@ -168,9 +171,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
 <h1 style="text-align: center;">Créer un Devis</h1>
- <a href="devis_liste.php" class="btn-liste">Voir la liste des devis</a>
 
+
+<a href="devis_liste.php" class="btn-liste" style="display: inline-block; background-color: #007bff; color: white; text-decoration: none; padding: 10px 20px; border-radius: 5px; font-weight: bold; margin: 20px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.1); transition: background-color 0.3s ease;">Voir la liste des devis</a>
 <?= $message ?>
+
 <form method="post">
     <fieldset>
         <legend>Client</legend>

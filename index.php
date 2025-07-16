@@ -1,28 +1,27 @@
-	
-<?php
-session_start();
-?>
+  <?php
 
-<?php include 'include/header.php'; ?>
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+  ?>
 
-<main class="d-flex flex-column justify-content-center align-items-center text-center min-vh-100 bg-dark text-white">
-    <img src="images/logo_unedic.png" alt="logo_unedic" class="mb-4" style="width: 150px; height: 150px;">
+  <?php include 'include/header.php'; ?>
+  <header style=" position: sticky; top: 0; display: flex; justify-content: space-between; align-items: center; padding: 10px 30px; background-color: #f5f5f5; border-bottom: 1px solid #ddd;">
 
-    <?php if (isset($_SESSION['id'])): ?>
-        <h1 class="mb-3">Bienvenue <?php echo htmlspecialchars($_SESSION['username']); ?> !</h1>
-        <h4 class="mb-4">Votre plateforme de divertissement préférée</h4>
-        <div>
-            <a href="profil.php" class="btn btn-primary btn-lg mx-2">Mon Profil</a>
-            <a href="deconnexion.php" class="btn btn-danger btn-lg mx-2">Déconnexion</a>
-        </div>
-    <?php else: ?>
-        <h1 class="mb-3">Bienvenue chez Unédic</h1>
-        <h4 class="mb-4">Votre plateforme de divertissement préférée</h4>
-        <div>
-            <a href="inscription.php" class="btn btn-light btn-lg mx-2">Inscription</a>
-            <a href="connexion.php" class="btn btn-outline-light btn-lg mx-2">Connexion</a>
-        </div>
-    <?php endif; ?>
-</main>
+    <div>
+        <a href="devis_nouveau.php">
+            <img src="images/logo-nielsen.png" alt="logo_nielsen" style="height: 50px;">
+        </a>
+    </div>
 
-
+  
+    <div style="display: flex; gap: 15px;">
+        <?php if (isset($_SESSION['id'])): ?>
+            <a href="profil.php" style="text-decoration: none; padding: 8px 15px; background-color: #007bff; color: white; border-radius: 5px;">Mon Profil</a>
+            <a href="deconnexion.php" style="text-decoration: none; padding: 8px 15px; background-color: #dc3545; color: white; border-radius: 5px;">Déconnexion</a>
+        <?php else: ?>
+            <a href="inscription.php" style="text-decoration: none; padding: 8px 15px; background-color: #6c757d; color: white; border-radius: 5px;">Inscription</a>
+            <a href="connexion.php" style="text-decoration: none; padding: 8px 15px; background-color: transparent; border: 1px solid #6c757d; color: #6c757d; border-radius: 5px;">Connexion</a>
+            <?php endif; ?>
+    </div>
+</header>

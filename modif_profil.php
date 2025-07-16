@@ -1,5 +1,8 @@
   <?php
-session_start();
+// session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 ?>
   <?php require 'include/header.php'; ?>
   <title>Profil</title>
@@ -7,64 +10,13 @@ session_start();
 </div>
 
 <?php
-
-
-if(isset($_POST['modification']) AND isset($_SESSION['id']))
-{
-  $id = $_SESSION['id'];
-
-  if(empty($_POST['username']) || !preg_match('/[a-zA-Z0-9]+/', $_POST['username']))
-  {
-    $message = 'Votre username doit être une chaine de caractéres (alphanumérique) !';
-  }
-  elseif(empty($_POST['email']) || !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL))
-  {
-    $message = "Veuillez entrer une adresse email valide";
-  } 
-  // elseif(empty($_POST['password']) || $_POST['password'] != $_POST['password2'])
-  // {
-  //   $message = "Rentrer un mot de passe valide";
-  // }
-  else
-  {
-    require_once 'include/start_bdd.php';
-
-
-    $req = $bdd->prepare('SELECT * FROM membres.table_membres WHERE username = :username');
-
-    $req->bindvalue(':username', $_POST['username']);
-    $req->execute();
-    $result = $req->fetch();
-
-    if($result)
-    {
-      $message = "Le nom d'utilisateur que vous avez choisi est déjà pris";
-    }
-    else
-    {
-      $requete = $bdd->prepare('UPDATE membres.table_membres SET username = :username, email = :email WHERE id=:id' );
-
-      $requete->bindvalue(':username', $_POST['username']);
-      $requete->bindvalue(':email', $_POST['email']);
-      $requete->bindvalue(':id', $id);
-
-      $requete->execute();
-
- // Met à jour les infos de session
-$_SESSION['username'] = $_POST['username'];
-$_SESSION['email'] = $_POST['email'];
-      header('location:index.php');
-
-    }
-
-  }
-
-}
-
+require_once 'Controllers/modifProfilController.php';
 ?>
 
+
+
 <div id="login" class="py-5">
-  <h3 class="text-center text-primary mb-4">Modification du profil</h3>
+  <h3 class="modif-title" style="background-color: #f8f9fa; padding: 15px; border-radius: 8px; color: #333; text-align: center; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); width: 35%; margin-left: auto; margin-right: auto;">Modification du profil</h3>
   <div class="container">
     <div id="login-row" class="row justify-content-center align-items-center">
       <div id="login-column" class="col-md-6">
@@ -89,6 +41,16 @@ $_SESSION['email'] = $_POST['email'];
               <input type="email" name="email" id="email" class="form-control" placeholder="Entrez votre email" value="<?php echo htmlspecialchars($_SESSION['email']); ?>">
             </div>
 
+            <div class="form-group mb-3">
+              <label for="telephone" class="form-label text-dark">Téléphone</label>
+              <input type="tel" name="telephone" id="telephone" class="form-control" placeholder="Entrez votre numéro de téléphone" value="<?php echo htmlspecialchars($_SESSION['telephone'] ?? ''); ?>">
+            </div>
+
+            <div class="form-group mb-3">
+              <label for="adresse" class="form-label text-dark">Adresse</label>
+              <input type="text" name="adresse" id="adresse" class="form-control" placeholder="Entrez votre adresse" value="<?php echo htmlspecialchars($_SESSION['adresse'] ?? ''); ?>">
+            </div>
+
             <div class="form-group text-center">
               <input type="submit" name="modification" class="btn btn-primary btn-lg w-100" value="Modifier mon profil">
             </div>
@@ -99,6 +61,8 @@ $_SESSION['email'] = $_POST['email'];
     </div>
   </div>
 </div>
+
+
 
 </body>
 </html>

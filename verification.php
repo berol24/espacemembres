@@ -17,7 +17,7 @@ require_once 'include/start_bdd.php';
 
 		if(!empty($email) && !empty($token)){
 
-			$requete = $bdd->prepare('SELECT * FROM membres.table_membres WHERE email=:email AND token=:token');
+			$requete = $bdd->prepare('SELECT * FROM fruistore.users WHERE email=:email AND token=:token');
 			$requete->bindvalue(':email',$email);
 			$requete->bindvalue(':token',$token);
 
@@ -26,7 +26,7 @@ require_once 'include/start_bdd.php';
 			$nombre=$requete->rowCount();
 
 			if($nombre==1){
-				$update = $bdd->prepare('UPDATE membres.table_membres SET validation=:validation, token=:token WHERE email=:email');
+				$update = $bdd->prepare('UPDATE fruistore.users SET validation=:validation, token=:token WHERE email=:email');
 
 				$update->bindvalue(':validation',1);
 				$update->bindvalue(':token','valide');

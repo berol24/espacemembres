@@ -1,11 +1,9 @@
 <?php require 'index.php'; ?>
-
-
 <?php
 // devis_liste.php : Affichage des devis
 include 'include/header.php';
 
-// session_start();
+
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -41,16 +39,8 @@ $devis = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <head>
     <meta charset="UTF-8">
     <title>Liste des Devis</title>
-    <style>
-        body { font-family: Arial; margin: 30px; background: #f0f8ff; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { border: 1px solid #ccc; padding: 8px; }
-        th { background: #d9edf7; }
-        .btn-create{ background: #4CAF50; color: white; padding: 10px 20px; text-decoration: none; display: inline-block; margin: 10px 0; border-radius: 5px; }
-        .btn-download { background: #007bff; color: white; padding: 5px 10px; text-decoration: none; border-radius: 3px; margin-right: 5px; }
-        .btn-whatsapp { background: #25D366; color: white; padding: 5px 10px; text-decoration: none; border-radius: 3px; margin-right: 5px; }
-        .btn-delete { background: #dc3545; color: white; padding: 5px 10px; text-decoration: none; border-radius: 3px; }
-    </style>
+  
+    <link rel="stylesheet" href="/css/devis_liste.css">
 </head>
 <body>
 <h1>Mes Devis</h1>
@@ -69,15 +59,19 @@ $devis = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <td><?= htmlspecialchars($d['prenom'] . ' ' . $d['nom']) ?></td>
             <td><?= number_format($d['total_ht'], 2, ',', ' ') ?> €</td>
             <td><?= number_format($d['total_ttc'], 2, ',', ' ') ?> €</td>
-            <td>
-                <a href="generate_pdf.php?id=<?= $d['id'] ?>" class="btn-download" target="_blank" download>PDF</a>
+            <td style="padding: 10px; text-align: center;">
+                <a href="generate_pdf.php?id=<?= $d['id'] ?>" class="btn-download" target="_blank" download style="margin-right: 15px; display: inline-block;">PDF</a>
                 <?php
                 $pdfUrl = urlencode("https://" . $_SERVER['HTTP_HOST'] . "/generate_pdf.php?id=" . $d['id']);
-                $whatsappMessage = urlencode("Voici votre devis : ");
+                $whatsappMessage = urlencode("Bonjour, voici votre devis généré par NielsenIQ : ");
                 $whatsappLink = "https://api.whatsapp.com/send?phone=" . $d['telephone'] . "&text=" . $whatsappMessage . $pdfUrl;
                 ?>
-                <a href="<?= $whatsappLink ?>" class="btn-whatsapp" target="_blank">WhatsApp</a>
-                <a href="?suppr=<?= $d['id'] ?>" class="btn-delete" onclick="return confirm('Supprimer ce devis ?');">Supprimer</a>
+                <a href="<?= $whatsappLink ?>" target="_blank" style="margin: 0 15px; display: inline-block;">
+                    <img src="./images/whatsapp.png" alt="whatsapp_icon" style="width: 30px; height: 30px; vertical-align: middle; border-radius: 50%;">
+                </a>
+                <a href="?suppr=<?= $d['id'] ?>" onclick="return confirm('Supprimer ce devis ?');" style="margin-left: 15px; display: inline-block;">
+                    <img src="./images/delete.png" alt="delete_icon" style="width: 30px; height: 30px; vertical-align: middle; border-radius: 50%;">
+                </a>
             </td>
         </tr>
         <?php endforeach; ?>

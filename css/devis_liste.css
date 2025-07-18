@@ -1,0 +1,11 @@
+body { font-family: Arial; margin: 30px; background: #f0f8ff; }
+table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+th, td { border: 1px solid #ccc; padding: 8px; }
+th { background: #d9edf7; }
+.btn-create{ background: #2D6DF6; color: white; padding: 10px 20px; text-decoration: none; display: inline-block;
+margin: 10px 0; border-radius: 5px; }
+.btn-download { background: #007bff; color: white; padding: 5px 10px; text-decoration: none; border-radius: 3px;
+margin-right: 5px; }
+.btn-whatsapp { background: #25D366; color: white; padding: 5px 10px; text-decoration: none; border-radius: 3px;
+margin-right: 5px; }
+.btn-delete { background: #dc3545; color: white; padding: 5px 10px; text-decoration: none; border-radius: 3px; }

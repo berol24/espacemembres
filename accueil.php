@@ -23,7 +23,7 @@
               text-align: center;
           }
           h1,h3 {
-              color: #2e7d32;
+              color: #2D6DF6;
               margin-bottom: 30px;
           }
           .features {
@@ -39,7 +39,7 @@
           }
           .cta-button {
               display: inline-block;
-              background: #2e7d32;
+              background: #2D6DF6;
               color: white;
               padding: 15px 30px;
               text-decoration: none;
@@ -48,7 +48,8 @@
               transition: background 0.3s;
           }
           .cta-button:hover {
-              background: #1b5e20;
+              background: #2D6DF6;
+              opacity: 0.9;
           }
       </style>
   </head>
